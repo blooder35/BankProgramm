@@ -13,6 +13,7 @@ import java.util.List;
 public class TransactionService {
     @Autowired
     TransactionDao transactionDao;
+
     @Autowired
     AccountDao accountDao;
 
@@ -36,24 +37,26 @@ public class TransactionService {
     public String newTransaction(BankTransaction bankTransaction) {
         boolean senderExists;
         boolean recipientExists;
-        if (bankTransaction.getSender() == 0) {
-            senderExists = true;
-        } else {
-            senderExists = accountDao.accountExist(bankTransaction.getSender());
-        }
-        recipientExists = accountDao.accountExist(bankTransaction.getRecipient());
-
-        if (senderExists && recipientExists) {
-            if (bankTransaction.getSender() == 0 || accountDao.getBalance(bankTransaction.getSender()) > bankTransaction.getAmount()) {
-                transactionDao.addTransaction(bankTransaction);
-                accountDao.removeFunds(bankTransaction.getSender(), bankTransaction.getAmount());
-                accountDao.addFunds(bankTransaction.getRecipient(), bankTransaction.getAmount());
+        synchronized (AccountDao.class) {
+            if (bankTransaction.getSender() == 0) {
+                senderExists = true;
             } else {
-                return "Not enough funds";
+                senderExists = accountDao.accountExist(bankTransaction.getSender());
             }
-        } else {
-            return "Sender or recipient account does not exist";
+            recipientExists = accountDao.accountExist(bankTransaction.getRecipient());
+
+            if (senderExists && recipientExists) {
+                if (bankTransaction.getSender() == 0 || accountDao.getBalance(bankTransaction.getSender()) > bankTransaction.getAmount()) {
+                    transactionDao.addTransaction(bankTransaction);
+                    accountDao.removeFunds(bankTransaction.getSender(), bankTransaction.getAmount());
+                    accountDao.addFunds(bankTransaction.getRecipient(), bankTransaction.getAmount());
+                } else {
+                    return "Not enough funds";
+                }
+            } else {
+                return "Sender or recipient account does not exist";
+            }
+            return "completed";
         }
-        return "completed";
     }
 }

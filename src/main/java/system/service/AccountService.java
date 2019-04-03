@@ -26,8 +26,10 @@ public class AccountService {
         }
     }
 
-    public String closeAccount(int accountID) {
-        accountDao.closeAccount(accountID);
-        return "Account closed";
+    public synchronized String closeAccount(int accountID) {
+        synchronized (AccountDao.class) {
+            accountDao.closeAccount(accountID);
+            return "Account closed";
+        }
     }
 }
