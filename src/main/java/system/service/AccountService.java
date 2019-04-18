@@ -4,14 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import system.Utility.StringConstants;
+import system.utility.StringConstants;
 import system.dao.AccountDao;
 import system.model.BankAccount;
 
 import java.util.List;
 
 @Service
-public class AccountService {
+public final class AccountService {
     @Autowired
     AccountDao accountDao;
     Logger logger = LoggerFactory.getLogger(StringConstants.USER_LOGGER);

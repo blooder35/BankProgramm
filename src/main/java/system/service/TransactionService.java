@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import system.Exceptions.AccountsNotFoundException;
-import system.Exceptions.NotEnoughBalanceException;
-import system.Utility.StringConstants;
+import system.exceptions.AccountsNotFoundException;
+import system.exceptions.NotEnoughBalanceException;
+import system.utility.StringConstants;
 import system.dao.AccountDao;
 import system.dao.TransactionDao;
 import system.model.BankAccount;
@@ -16,7 +16,7 @@ import system.model.BankTransaction;
 import java.util.List;
 
 @Service
-public class TransactionService {
+public final class TransactionService {
     @Autowired
     TransactionDao transactionDao;
     Logger logger = LoggerFactory.getLogger(StringConstants.USER_LOGGER);

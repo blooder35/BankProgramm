@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import system.Exceptions.AccountsNotFoundException;
-import system.Exceptions.NotEnoughBalanceException;
-import system.Utility.LoggerUtility;
-import system.Utility.StringConstants;
+import system.exceptions.AccountsNotFoundException;
+import system.exceptions.NotEnoughBalanceException;
+import system.utility.LoggerUtility;
+import system.utility.StringConstants;
 import system.model.BankTransaction;
 import system.service.TransactionService;
 
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/transaction")
-public class TransactionController {
+public final class TransactionController {
     @Autowired
     TransactionService transactionService;
     private final Logger logger= LoggerFactory.getLogger(StringConstants.USER_LOGGER);

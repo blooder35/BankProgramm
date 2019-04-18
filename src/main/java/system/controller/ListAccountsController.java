@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import system.Utility.LoggerUtility;
-import system.Utility.StringConstants;
+import system.utility.LoggerUtility;
+import system.utility.StringConstants;
 import system.model.BankClient;
 import system.service.AccountService;
 
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/accounts")
-public class ListAccountsController {
+public final class ListAccountsController {
     @Autowired
     AccountService accountService;
     private final Logger logger=LoggerFactory.getLogger(StringConstants.USER_LOGGER);

@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import system.Exceptions.NotValidClientException;
-import system.Utility.StringConstants;
+import system.exceptions.NotValidClientException;
+import system.utility.StringConstants;
 import system.dao.ClientDao;
 import system.model.BankClient;
 
@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class ClientService {
+public final class ClientService {
     @Autowired
     ClientDao clientDao;
     Logger logger = LoggerFactory.getLogger(StringConstants.USER_LOGGER);

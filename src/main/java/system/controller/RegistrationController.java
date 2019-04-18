@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import system.Exceptions.NotValidClientException;
-import system.Utility.LoggerUtility;
-import system.Utility.StringConstants;
+import system.exceptions.NotValidClientException;
+import system.utility.LoggerUtility;
+import system.utility.StringConstants;
 import system.model.BankClient;
 import system.service.ClientService;
 
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/newClient")
-public class RegistrationController {
+public final class RegistrationController {
     @Autowired
     ClientService clientService;
     private final Logger logger= LoggerFactory.getLogger(StringConstants.USER_LOGGER);

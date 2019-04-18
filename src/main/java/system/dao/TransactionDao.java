@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Repository
-public class TransactionDao {
+public final class TransactionDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
 

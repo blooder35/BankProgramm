@@ -3,7 +3,7 @@ package system.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class BankAccount implements Serializable {
+public final class BankAccount implements Serializable {
     private int id;
     private int ownerID;
     private Date dateOfOpening;

@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import system.Utility.LoggerUtility;
-import system.Utility.StringConstants;
+import system.utility.LoggerUtility;
+import system.utility.StringConstants;
 import system.model.BankClient;
 import system.service.ClientService;
 
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/list")
-public class ListClientsController {
+public final class ListClientsController {
     @Autowired
     ClientService clientService;
     private final Logger logger= LoggerFactory.getLogger(StringConstants.USER_LOGGER);

@@ -2,7 +2,7 @@ package system.model;
 
 import java.io.Serializable;
 
-public class BankClient implements Serializable {
+public final class BankClient implements Serializable {
     int id;
     String name;
     String surName;

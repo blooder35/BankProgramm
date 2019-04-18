@@ -10,7 +10,7 @@ import system.model.BankClient;
 import java.util.List;
 
 @Repository
-public class ClientDao {
+public final class ClientDao {
 
     @Autowired
     JdbcTemplate jdbcTemplate;

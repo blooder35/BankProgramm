@@ -2,7 +2,7 @@ package system.model;
 
 import java.sql.Date;
 
-public class BankTransaction {
+public final class BankTransaction {
     private int id;
     private int amount;
     private int sender;
