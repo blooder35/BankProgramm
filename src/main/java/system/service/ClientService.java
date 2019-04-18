@@ -1,7 +1,11 @@
 package system.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import system.Exceptions.NotValidClientException;
+import system.Utility.StringConstants;
 import system.dao.ClientDao;
 import system.model.BankClient;
 
@@ -16,28 +20,31 @@ import java.util.List;
 public class ClientService {
     @Autowired
     ClientDao clientDao;
+    Logger logger = LoggerFactory.getLogger(StringConstants.USER_LOGGER);
 
 
-    public String registerClient(BankClient bankClient) {
+    public int registerClient(BankClient bankClient) throws NotValidClientException {
+        logger.debug("entered registerClient method with bankClient:{}",bankClient.toString());
         if (validateClient(bankClient)) {
             int count = clientDao.addClientToDatabase(bankClient);
-            if (count > 0) {
-                return "Client added";
-            } else {
-                return "Client with this passport already exists";
-            }
+            return count;
         } else {
-            return "something wrong with your input";
+            logger.debug("left registerClient with wrong Input bankClient:{}",bankClient.toString());
+            throw new NotValidClientException();
         }
     }
 
     public List<BankClient> listClients() {
+        logger.debug("entered listClients method");
         List<BankClient> list = clientDao.getAllClients();
+        logger.debug("left listClients method with bankClientList:{}",list);
         return list;
     }
 
     public List<BankClient> getAlikeClients(BankClient bankClient) {
+        logger.debug("entered getAlikeClients method with bankClient:{}", bankClient);
         List<BankClient> list = clientDao.getAlikeClients(bankClient);
+        logger.debug("left getAlikeClients method with bankClientList:{}", list);
         return list;
     }
 

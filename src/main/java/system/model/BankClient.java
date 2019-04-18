@@ -71,4 +71,15 @@ public class BankClient implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
+    @Override
+    public String toString() {
+        return "BankClient{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surName='" + surName + '\'' +
+                ", patrName='" + patrName + '\'' +
+                ", passportNumber='" + passportNumber + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                '}';
+    }
 }

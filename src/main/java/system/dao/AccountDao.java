@@ -1,7 +1,6 @@
 package system.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,7 +17,7 @@ public class AccountDao {
 
 
     public List<BankAccount> getUserAccounts(int clientID) {
-        String update = "Select * from bankaccount where ownerID in (select id from bankclient where ownerID = ?)";
+        String update = "Select * from bankaccount where ownerID in (select id from bankclient where ownerID = ?) and active=1";
         List<BankAccount> list = jdbcTemplate.query(update, new Object[]{clientID}, new BeanPropertyRowMapper<>(BankAccount.class));
         return list;
     }
@@ -32,14 +31,8 @@ public class AccountDao {
     }
 
     public int closeAccount(int accountID) {
-        String update = "delete from bankaccount where id=?";
+        String update = "update bankaccount set active=0 where id=?";
         return jdbcTemplate.update(update, accountID);
-    }
-
-    public Integer getBalance(int accountID) {
-        String update = "select balance from bankaccount where id=?";
-        Integer balance = jdbcTemplate.queryForObject(update, new Object[]{accountID}, Integer.class);
-        return balance;
     }
 
     public int removeFunds(int id, int amount) {
@@ -52,13 +45,9 @@ public class AccountDao {
         return jdbcTemplate.update(update, amount, id);
     }
 
-    public boolean accountExist(int id) {
-        String update = "select id from bankaccount where id=?";
-        try {
-            jdbcTemplate.queryForObject(update, new Object[]{id}, Integer.class);
-        } catch (EmptyResultDataAccessException e) {
-            return false;
-        }
-        return true;
+    public List<BankAccount> getTransactionAccountsAndLock(int sender, int recipient) {
+        String update = "select * from bankaccount where (id=? or id=?) and active=1 for update";
+        List<BankAccount> list = jdbcTemplate.query(update, new Object[]{sender, recipient}, new BeanPropertyRowMapper<>(BankAccount.class));
+        return list;
     }
 }

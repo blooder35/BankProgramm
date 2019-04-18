@@ -49,4 +49,14 @@ public class BankAccount implements Serializable {
     public void setBalance(int balance) {
         this.balance = balance;
     }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "id=" + id +
+                ", ownerID=" + ownerID +
+                ", dateOfOpening=" + dateOfOpening +
+                ", balance=" + balance +
+                '}';
+    }
 }

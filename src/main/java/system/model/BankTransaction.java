@@ -60,4 +60,15 @@ public class BankTransaction {
     public void setDateAndTime(Date dateAndTime) {
         this.dateAndTime = dateAndTime;
     }
+
+    @Override
+    public String toString() {
+        return "BankTransaction{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", sender=" + sender +
+                ", recipient=" + recipient +
+                ", dateAndTime=" + dateAndTime +
+                '}';
+    }
 }

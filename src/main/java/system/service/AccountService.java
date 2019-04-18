@@ -1,7 +1,10 @@
 package system.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import system.Utility.StringConstants;
 import system.dao.AccountDao;
 import system.model.BankAccount;
 
@@ -11,25 +14,28 @@ import java.util.List;
 public class AccountService {
     @Autowired
     AccountDao accountDao;
+    Logger logger = LoggerFactory.getLogger(StringConstants.USER_LOGGER);
 
     public List<BankAccount> listUserAccounts(int clientID) {
-        return accountDao.getUserAccounts(clientID);
+        logger.debug("entered listUserAccounts method with clientID:{}", clientID);
+        List<BankAccount> userAccounts = accountDao.getUserAccounts(clientID);
+        logger.debug("left listUserAccounts method with userAccounts:{}",userAccounts.toString());
+        return userAccounts;
     }
 
-    public String registerAccount(int ownerID) {
+    public int registerAccount(int ownerID) {
+
+        logger.debug("Entered registerAccount method with ownerID={}", ownerID);
         int count = 0;
         count = accountDao.registerAccount(ownerID);
-        if (count > 0) {
-            return "Account successfully created";
-        } else {
-            return "Error when creating account";
-        }
+        logger.debug("left registerAccount method with count={}", count);
+        return count;
     }
 
-    public synchronized String closeAccount(int accountID) {
-        synchronized (AccountDao.class) {
-            accountDao.closeAccount(accountID);
-            return "Account closed";
-        }
+    public synchronized int closeAccount(int accountID) {
+        logger.debug("entered closeAccount method with accountID={}", accountID);
+        int count=accountDao.closeAccount(accountID);
+        logger.debug("successfully left closeAccount method with count:{}",count);
+        return count;
     }
 }
