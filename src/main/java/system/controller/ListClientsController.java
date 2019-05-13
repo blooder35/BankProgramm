@@ -20,10 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 public final class ListClientsController {
     @Autowired
     ClientService clientService;
-    private final Logger logger= LoggerFactory.getLogger(StringConstants.USER_LOGGER);
     @RequestMapping("/clients")
     public String listClients(Model model, @ModelAttribute("message") String message, HttpServletRequest request) {
-        LoggerUtility.logRequestString(request,logger);
         model.addAttribute("clientsList", clientService.listClients());
         model.addAttribute("message", message);
         return "listClients";
@@ -31,14 +29,12 @@ public final class ListClientsController {
 
     @RequestMapping(value = "/alikeClients", method = RequestMethod.GET)
     public String listAlikeClients(@ModelAttribute("clientData") BankClient bankClient, Model model, HttpServletRequest request) {
-        LoggerUtility.logRequestString(request,logger);
         model.addAttribute("clientsList", clientService.getAlikeClients(bankClient));
         return "listClients";
     }
 
     @RequestMapping(value = "/alikeClientsForm", method = RequestMethod.GET)
     public String alikeClientsForm(Model model,HttpServletRequest request) {
-        LoggerUtility.logRequestString(request,logger);
         model.addAttribute("clientData", new BankClient());
         return "alikeClientsForm";
     }

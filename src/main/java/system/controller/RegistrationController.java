@@ -23,11 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 public final class RegistrationController {
     @Autowired
     ClientService clientService;
-    private final Logger logger= LoggerFactory.getLogger(StringConstants.USER_LOGGER);
 
     @RequestMapping(value = "/registrationForm", method = RequestMethod.GET)
     public ModelAndView getRegistrationForm(@ModelAttribute("message") String message, Model model, HttpServletRequest request) {
-        LoggerUtility.logRequestString(request,logger);
         model.addAttribute("message", message);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("newClient", new BankClient());
@@ -37,7 +35,6 @@ public final class RegistrationController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerUser(@ModelAttribute("newClient") BankClient bankClient, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        LoggerUtility.logRequestString(request,logger);
         try {
             int count = clientService.registerClient(bankClient);
             if (count > 0) {

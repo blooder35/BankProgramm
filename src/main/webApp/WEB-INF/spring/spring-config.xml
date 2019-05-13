@@ -9,13 +9,16 @@
     <context:component-scan base-package="system"/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:view-controller path="/" view-name="index"/>
+    <mvc:interceptors>
+        <bean id="loggerInterceptor" class="system.interceptors.LoggerInterceptor"/>
+    </mvc:interceptors>
     <bean id="resolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost/bank?useSSL=false"/>
+        <property name="url" value="jdbc:mysql://localhost/bank?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC"/>
         <property name="username" value="root"/>
         <property name="password" value="1234"/>
     </bean>
