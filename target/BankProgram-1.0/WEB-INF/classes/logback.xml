@@ -1,0 +1,31 @@
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>bank.log</file>
+        <encoder>
+            <pattern>session_id=%X{SESSION} action_id=%X{ID} user_ip=%X{IP} %d{HH:mm:ss.SSS} request_info=%X{REQUEST} modelAndView=%X{MODEL_VALUES} %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE_FILTER_LOGGER" class="ch.qos.logback.core.FileAppender">
+        <file>bankFilter.log</file>
+        <encoder>
+            <pattern>session_id=%X{SESSION} action_id=%X{ID} user_ip=%X{IP} %d{HH:mm:ss.SSS} request_info=%X{REQUEST} response_body=%X{RESPONSE} %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="UserLogger" level="info" addictivity="false">
+        <appender-ref ref="FILE"/>
+    </logger>
+    <logger name="UserFilterLogger" level="info" addictivity="false">
+        <appender-ref ref="FILE_FILTER_LOGGER"/>
+    </logger>
+    <root level="OFF">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
